@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Banana.cs" />
+    <Compile Include="GameObjects\Apple.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameObjects\Fruit.cs" />
+    <Compile Include="GameObjects\FruitEatenEventArgs.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MoveDirection.cs" />
     <Compile Include="GameObjects\Snake.cs" />
@@ -50,6 +54,7 @@
     <Compile Include="KeyboardWatcher\KeyboardWatcher.cs" />
     <Compile Include="KeyboardWatcher\KeyboardWatcherThreadArgs.cs" />
     <Compile Include="KeyboardWatcher\NewKeyPressedEventArgs.cs" />
+    <Compile Include="Kiwi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

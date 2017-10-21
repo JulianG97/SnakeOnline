@@ -8,11 +8,13 @@ namespace Client
         private MoveDirection currentDirection;
         private Thread moveThread;
 
-        public Snake(ConsoleColor color, char symbol, int positionX, int positionY, int speed, MoveDirection direction)
+        public event EventHandler<FruitEatenEventArgs> FruitEaten;
+
+        public Snake(ConsoleColor color, int positionX, int positionY, int speed, MoveDirection direction)
         {
             this.Color = color;
-            this.Symbol = symbol;
-            this.Head = new SnakePart(positionX, positionY, color, symbol);
+            this.Symbol = ' ';
+            this.Head = new SnakePart(positionX, positionY, color, this.Symbol);
             this.currentDirection = direction;
             this.moveThread = new Thread(Move);
             this.Speed = speed;
@@ -42,16 +44,28 @@ namespace Client
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    this.currentDirection = MoveDirection.UP;
+                    if (this.currentDirection != MoveDirection.DOWN)
+                    {
+                        this.currentDirection = MoveDirection.UP;
+                    }
                     break;
                 case ConsoleKey.DownArrow:
-                    this.currentDirection = MoveDirection.DOWN;
+                    if (this.currentDirection != MoveDirection.UP)
+                    {
+                        this.currentDirection = MoveDirection.DOWN;
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
-                    this.currentDirection = MoveDirection.LEFT;
+                    if (this.currentDirection != MoveDirection.RIGHT)
+                    {
+                        this.currentDirection = MoveDirection.LEFT;
+                    }
                     break;
                 case ConsoleKey.RightArrow:
-                    this.currentDirection = MoveDirection.RIGHT;
+                    if (this.currentDirection != MoveDirection.LEFT)
+                    {
+                        this.currentDirection = MoveDirection.RIGHT;
+                    }
                     break;
             }
         }
@@ -116,11 +130,19 @@ namespace Client
             while (currentPart != null)
             {
                 Console.SetCursorPosition(currentPart.PositionX, currentPart.PositionY);
-                Console.ForegroundColor = currentPart.Color;
-                Console.Write(currentPart.Symbol);
+                Console.BackgroundColor = currentPart.Color;
+                Console.Write(this.Symbol);
                 Console.ResetColor();
 
                 currentPart = currentPart.Next;
+            }
+        }
+
+        protected virtual void FireOnFruitEaten(Fruit fruit)
+        {
+            if (this.FruitEaten != null)
+            {
+                this.FruitEaten(this, new FruitEatenEventArgs(fruit.Points));
             }
         }
     }
