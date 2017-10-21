@@ -46,7 +46,6 @@
     <Compile Include="GameObjects\Apple.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObjects\Fruit.cs" />
-    <Compile Include="GameObjects\FruitEatenEventArgs.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MoveDirection.cs" />
     <Compile Include="GameObjects\Snake.cs" />

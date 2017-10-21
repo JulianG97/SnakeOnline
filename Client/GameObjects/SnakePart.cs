@@ -27,8 +27,8 @@ namespace Client
         public override void Draw()
         {
             Console.SetCursorPosition(this.PositionX, this.PositionY);
-            Console.BackgroundColor = this.Color;
-            Console.Write(" ");
+            Console.ForegroundColor = this.Color;
+            Console.Write(this.Symbol);
             Console.ResetColor();
         }
     }
