@@ -4,6 +4,8 @@ namespace Client
 {
     public abstract class GameObject
     {
+        private static object locker = new object();
+
         public char Symbol
         {
             get;
@@ -30,10 +32,13 @@ namespace Client
 
         public virtual void Draw()
         {
-            Console.SetCursorPosition(this.PositionX, this.PositionY);
-            Console.ForegroundColor = this.Color;
-            Console.Write(this.Symbol);
-            Console.ResetColor();
+            lock (locker)
+            {
+                Console.SetCursorPosition(this.PositionX, this.PositionY);
+                Console.ForegroundColor = this.Color;
+                Console.Write(this.Symbol);
+                Console.ResetColor();
+            }
         }
     }
 }

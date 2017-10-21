@@ -86,40 +86,22 @@ namespace Client
                 // If one or more snake parts will be added, the last element should not get removed.
                 if (this.AddSnakeParts == 0)
                 {
-                    Console.SetCursorPosition(currentPart.PositionX, currentPart.PositionY);
-                    Console.Write(" ");
+                    EmptyField emptySpace = new EmptyField(currentPart.PositionX, currentPart.PositionY);
+                    emptySpace.Draw();
                 }
-
-                currentPart = this.Head;
 
                 SnakePart partToAdd = null;
 
-                // If snake parts will be added, it finds the last part of the snake and store it as partToAdd
+                // If snake parts will be added, it gets the last part of the snake and stores it in partToAdd.
                 if (this.AddSnakeParts > 0)
                 {
-                    while (currentPart != null)
-                    {
-                        if (currentPart.Next == null)
-                        {
-                            partToAdd = new SnakePart(currentPart.PositionX, currentPart.PositionY, this.Color, this.Symbol);
+                    partToAdd = new SnakePart(currentPart.PositionX, currentPart.PositionY, this.Color, this.Symbol);
 
-                            this.AddSnakeParts--;
-                        }
-
-                        currentPart = currentPart.Next;
-                    }
-
-                    currentPart = this.Head;
+                    this.AddSnakeParts--;
                 }
 
-                //Get last part
-                while(currentPart.Next != null)
-                {
-                    currentPart = currentPart.Next;
-                }
-
-                // Sets the positions of each snake part to the positions of the previous snake part.
-                // The position of the head of the snake gets changed later.
+                // Sets the position of each snake part to the position of the previous snake part.
+                // The position of the head of the snake will be changed later on.
                 while (currentPart != null)
                 {
                     if (currentPart.Previous != null)
@@ -133,18 +115,13 @@ namespace Client
 
                 if (partToAdd != null)
                 {
-                    currentPart = this.Head;
-
-                    while(currentPart.Next != null)
-                    {
-                        currentPart = currentPart.Next;
-                    }
+                    currentPart = GetLastPart();
 
                     currentPart.Next = partToAdd;
                     partToAdd.Previous = currentPart;
                 }
 
-                // Change the positions of the head dependent on the current direction.
+                // Changes the position of the head depending on the current direction.
                 switch (this.currentDirection)
                 {
                     case MoveDirection.UP:

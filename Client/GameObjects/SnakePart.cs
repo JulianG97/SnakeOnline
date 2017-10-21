@@ -23,13 +23,5 @@ namespace Client
             get;
             set;
         }
-
-        public override void Draw()
-        {
-            Console.SetCursorPosition(this.PositionX, this.PositionY);
-            Console.ForegroundColor = this.Color;
-            Console.Write(this.Symbol);
-            Console.ResetColor();
-        }
     }
 }
