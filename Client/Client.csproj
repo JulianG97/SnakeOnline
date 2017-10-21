@@ -54,6 +54,7 @@
     <Compile Include="KeyboardWatcher\KeyboardWatcher.cs" />
     <Compile Include="KeyboardWatcher\KeyboardWatcherThreadArgs.cs" />
     <Compile Include="KeyboardWatcher\NewKeyPressedEventArgs.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MoveDirection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
