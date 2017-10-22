@@ -1,5 +1,5 @@
 # SnakeOnline
-An implementation of the classic game snake with online multiplayer
+An implementation of the classic game snake with offline singleplayer and online multiplayer
 
 ## Protocol
 ```
