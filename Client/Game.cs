@@ -8,6 +8,7 @@ namespace Client
     {
         private KeyboardWatcher keyboardWatcher;
         private Snake snake;
+        private Music music;
         private List<Fruit> fruits;
         private Thread spawnFruits;
         private Settings gameSettings;
@@ -15,6 +16,7 @@ namespace Client
 
         public Game(Settings gameSettings)
         {
+            this.music = new Music();
             this.gameSettings = gameSettings;
             this.keyboardWatcher = new KeyboardWatcher();
             this.spawnFruits = new Thread(SpawnFruit);
@@ -34,7 +36,22 @@ namespace Client
 
             Console.SetWindowSize(this.gameSettings.GameBoardWidth, this.gameSettings.GameBoardHeight);
 
-            snake = new Snake(ConsoleColor.Green, 2, 0, 100, MoveDirection.RIGHT, 'O');
+            int moveDelay = 0;
+
+            switch (gameSettings.SpeedMultiplicator)
+            {
+                case 1:
+                    moveDelay = 100;
+                    break;
+                case 2:
+                    moveDelay = 50;
+                    break;
+                case 3:
+                    moveDelay = 25;
+                    break;
+            }
+
+            snake = new Snake(ConsoleColor.Green, 2, 0, moveDelay, MoveDirection.RIGHT, 'O');
             SnakePart part1 = new SnakePart(1, 0, snake.Color, 'O');
             snake.Head.Next = part1;
             part1.Previous = snake.Head;
@@ -44,7 +61,7 @@ namespace Client
 
             snake.DrawWholeSnake();
             snake.isMoving = true;
-            snake.SnakeMoved += CheckIfIncreaseScore;
+            snake.SnakeMoved += CheckIfFruitEaten;
             snake.SnakeCollided += SnakeDied;
 
             this.keyboardWatcher.NewKeyPressed += NewKeyPressed;
@@ -53,6 +70,8 @@ namespace Client
             this.spawnFruits.Start();
 
             Console.Title = "Snake Online | Singleplayer | Score: " + this.Score;
+
+            this.music.PlayMusic("music");
 
             snake.Move();
         }
@@ -138,12 +157,14 @@ namespace Client
             snake.ChangeDirection(args.Key);
         }
 
-        private void CheckIfIncreaseScore(object sender, EventArgs args)
+        private void CheckIfFruitEaten(object sender, EventArgs args)
         {
             foreach (Fruit fruit in this.fruits)
             {
                 if (fruit.PositionX == this.snake.Head.PositionX && fruit.PositionY == this.snake.Head.PositionY)
                 {
+                    this.music.PlaySound("fruiteaten");
+
                     this.Score += fruit.Points;
                     this.fruits.Remove(fruit);
 
@@ -158,6 +179,8 @@ namespace Client
 
         public void SnakeDied(object sender, EventArgs args)
         {
+            this.music.StopMusic();
+            this.music.PlaySound("snakedied");
             GameOver();
         }
 

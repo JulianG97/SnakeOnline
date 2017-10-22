@@ -11,6 +11,7 @@ namespace Client
         private int gameBoardWidth;
         private int gameBoardHeight;
         private int speedMultiplicator;
+        private int fruitMultiplicator;
 
         public int GameBoardWidth
         {
@@ -62,9 +63,9 @@ namespace Client
             }
             private set
             {
-                if (value < 1 || value > 6)
+                if (value < 1 || value > 3)
                 {
-                    throw new ArgumentException("The speed multiplicator must be between 1 and 6!");
+                    throw new ArgumentException("The speed multiplicator must be between 1 and 3!");
                 }
 
                 this.speedMultiplicator = value;

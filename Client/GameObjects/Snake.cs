@@ -11,14 +11,14 @@ namespace Client
         public event EventHandler<EventArgs> SnakeMoved;
         public event EventHandler<EventArgs> SnakeCollided;
 
-        public Snake(ConsoleColor color, int positionX, int positionY, int speed, MoveDirection direction, char symbol)
+        public Snake(ConsoleColor color, int positionX, int positionY, int moveDelay, MoveDirection direction, char symbol)
         {
             this.Color = color;
             this.Symbol = symbol;
             this.Head = new SnakePart(positionX, positionY, color, this.Symbol);
             this.currentDirection = direction;
             this.moveThread = new Thread(Move);
-            this.Speed = speed;
+            this.MoveDelay = moveDelay;
         }
 
         public SnakePart Head
@@ -27,7 +27,7 @@ namespace Client
             set;
         }
 
-        public int Speed
+        public int MoveDelay
         {
             get;
             set;
@@ -174,7 +174,7 @@ namespace Client
 
                 CheckIfCollision();
 
-                Thread.Sleep(this.Speed);
+                Thread.Sleep(this.MoveDelay);
             }
         }
 
