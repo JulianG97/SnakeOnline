@@ -72,6 +72,23 @@ namespace Client
             }
         }
 
+        public int FruitMultiplicator
+        {
+            get
+            {
+                return this.fruitMultiplicator;
+            }
+            private set
+            {
+                if (value < 1 || value > 3)
+                {
+                    throw new ArgumentException("The fruit multiplicator must be between 1 and 3!");
+                }
+
+                this.fruitMultiplicator = value;
+            }
+        }
+
         public void SetGameSettings()
         {
             Console.Title = "Snake Online | Singleplayer | Set Game Settings";
@@ -134,6 +151,20 @@ namespace Client
                     else
                     {
                         this.SpeedMultiplicator = Int32.Parse(speedMultiplicator);
+                    }
+
+                    Console.WriteLine();
+
+                    Console.Write("Enter the fruit multiplicator: ");
+                    string fruitMultiplicator = Console.ReadLine();
+
+                    if (CheckIfStringIsInteger(fruitMultiplicator) == false)
+                    {
+                        throw new ArgumentException("The fruit multiplicator must be an integer!");
+                    }
+                    else
+                    {
+                        this.FruitMultiplicator = Int32.Parse(fruitMultiplicator);
                     }
 
                     validSettings = true;

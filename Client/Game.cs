@@ -105,7 +105,22 @@ namespace Client
                 this.fruits.Add(fruit);
                 fruit.Draw();
 
-                Thread.Sleep(10000);
+                int fruitDelay = 0;
+
+                switch (gameSettings.FruitMultiplicator)
+                {
+                    case 1:
+                        fruitDelay = 10000;
+                        break;
+                    case 2:
+                        fruitDelay = 5000;
+                        break;
+                    case 3:
+                        fruitDelay = 2500;
+                        break;
+                }
+
+                Thread.Sleep(fruitDelay);
             }
         }
 
