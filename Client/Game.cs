@@ -10,10 +10,12 @@ namespace Client
         private Snake snake;
         private List<Fruit> fruits;
         private Thread spawnFruits;
+        private Settings gameSettings;
         private bool exit;
 
-        public Game()
+        public Game(Settings gameSettings)
         {
+            this.gameSettings = gameSettings;
             this.keyboardWatcher = new KeyboardWatcher();
             this.spawnFruits = new Thread(SpawnFruit);
             this.fruits = new List<Fruit>();
@@ -30,20 +32,27 @@ namespace Client
         {
             Console.CursorVisible = false;
 
-            snake = new Snake(ConsoleColor.Cyan, 1, 0, 100, MoveDirection.RIGHT, 'O');
-            SnakePart part1 = new SnakePart(0, 0, ConsoleColor.Cyan, 'O');
+            Console.SetWindowSize(this.gameSettings.GameBoardWidth, this.gameSettings.GameBoardHeight);
+
+            snake = new Snake(ConsoleColor.Green, 2, 0, 100, MoveDirection.RIGHT, 'O');
+            SnakePart part1 = new SnakePart(1, 0, snake.Color, 'O');
             snake.Head.Next = part1;
             part1.Previous = snake.Head;
+            SnakePart part2 = new SnakePart(0, 0, snake.Color, 'O');
+            part1.Next = part2;
+            part2.Previous = part1;
+
             snake.DrawWholeSnake();
             snake.isMoving = true;
             snake.SnakeMoved += CheckIfIncreaseScore;
+            snake.SnakeCollided += SnakeDied;
 
             this.keyboardWatcher.NewKeyPressed += NewKeyPressed;
             this.keyboardWatcher.Start();
 
             this.spawnFruits.Start();
 
-            Console.Title = "Snake | Score: " + this.Score;
+            Console.Title = "Snake Online | Singleplayer | Score: " + this.Score;
 
             snake.Move();
         }
@@ -63,7 +72,7 @@ namespace Client
 
                 if (randomNumber <= 10)
                 {
-                    fruit = new Kiwi(positionX, positionY);
+                    fruit = new Papaya(positionX, positionY);
                 }
                 else if (randomNumber > 10 && randomNumber <= 50)
                 {
@@ -87,8 +96,8 @@ namespace Client
             {
                 Random random = new Random();
 
-                int randomPositionX = random.Next(0, Console.WindowWidth + 1);
-                int randomPositionY = random.Next(0, Console.WindowHeight + 1);
+                int randomPositionX = random.Next(0, Console.WindowWidth);
+                int randomPositionY = random.Next(0, Console.WindowHeight);
 
                 if (LegitFruitPosition(randomPositionX, randomPositionY) == true)
                 {
@@ -129,7 +138,7 @@ namespace Client
             snake.ChangeDirection(args.Key);
         }
 
-        public void CheckIfIncreaseScore(object sender, EventArgs args)
+        private void CheckIfIncreaseScore(object sender, EventArgs args)
         {
             foreach (Fruit fruit in this.fruits)
             {
@@ -138,13 +147,55 @@ namespace Client
                     this.Score += fruit.Points;
                     this.fruits.Remove(fruit);
 
-                    Console.Title = "Snake | Score: " + this.Score;
+                    Console.Title = "Snake Online | Singleplayer | Score: " + this.Score;
 
                     snake.AddSnakeParts += fruit.SnakeParts;
 
                     break;
                 }
             }
+        }
+
+        public void SnakeDied(object sender, EventArgs args)
+        {
+            GameOver();
+        }
+
+        public void GameOver()
+        {
+            this.keyboardWatcher.Stop();
+            this.snake.isMoving = false;
+            this.exit = true;
+
+            Console.Clear();
+
+            Console.Title = "Snake Online | Singeplayer | Game Over";
+            Console.SetWindowSize(61, 12);
+
+            Menu.PrintGameHeader();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("            " + "You died! Your score was {0}!", this.Score);
+            Console.WriteLine();
+            Console.WriteLine("            " + "Press [ENTER] to return to the menu!");
+
+            while (true)
+            {
+                ConsoleKeyInfo cki = Console.ReadKey(true);
+
+                if (cki.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+            }
+
+            Console.Clear();
+
+            Menu.DisplayGameMenu();
         }
     }
 }

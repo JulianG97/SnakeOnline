@@ -2,16 +2,16 @@
 
 namespace Client
 {
-    public class Kiwi : Fruit
+    public class Papaya : Fruit
     {
-        public Kiwi(int positionX, int positionY)
+        public Papaya(int positionX, int positionY)
         {
             this.PositionX = positionX;
             this.PositionY = positionY;
             this.Points = 50;
-            this.SnakeParts = 0;
+            this.SnakeParts = 3;
             this.Symbol = 'O';
-            this.Color = ConsoleColor.Green;
+            this.Color = ConsoleColor.Magenta;
         }
     }
 }

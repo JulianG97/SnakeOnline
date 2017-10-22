@@ -48,7 +48,7 @@
     <Compile Include="GameObjects\EmptyField.cs" />
     <Compile Include="GameObjects\Fruit.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\Kiwi.cs" />
+    <Compile Include="GameObjects\Papaya.cs" />
     <Compile Include="GameObjects\Snake.cs" />
     <Compile Include="GameObjects\SnakePart.cs" />
     <Compile Include="KeyboardWatcher\KeyboardWatcher.cs" />
@@ -58,6 +58,7 @@
     <Compile Include="MoveDirection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

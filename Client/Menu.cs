@@ -12,6 +12,7 @@ namespace Client
         {
             string[] menuItems = { "Singleplayer (Offline)", "Multiplayer (Online)", "Help", "Exit" };
 
+            Console.SetWindowSize(61, 25);
             Console.CursorVisible = false;
 
             bool exit = false;
@@ -20,6 +21,8 @@ namespace Client
             while (exit == false)
             {
                 Console.Clear();
+
+                Console.Title = "Snake Online";
 
                 PrintGameHeader();
 
@@ -71,7 +74,13 @@ namespace Client
                         {
                             case 0:
                                 Console.Clear();
-                                Game game = new Game();
+
+                                Settings gameSettings = new Settings();
+                                gameSettings.SetGameSettings();
+
+                                Console.Clear();
+
+                                Game game = new Game(gameSettings);
                                 game.Start();
                                 break;
                             case 1:
@@ -79,7 +88,7 @@ namespace Client
                             case 2:
                                 break;
                             case 3:
-                                exit = true;
+                                Environment.Exit(0);
                                 break;
                         }
                         break;

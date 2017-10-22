@@ -9,6 +9,7 @@ namespace Client
         private Thread moveThread;
 
         public event EventHandler<EventArgs> SnakeMoved;
+        public event EventHandler<EventArgs> SnakeCollided;
 
         public Snake(ConsoleColor color, int positionX, int positionY, int speed, MoveDirection direction, char symbol)
         {
@@ -80,6 +81,35 @@ namespace Client
         {
             while (this.isMoving == true)
             {
+                // Checks if the snake collided.
+                switch (this.currentDirection)
+                {
+                    case MoveDirection.UP:
+                        if (this.Head.PositionY - 1 < 0)
+                        {
+                            FireOnSnakeCollided();
+                        }
+                        break;
+                    case MoveDirection.DOWN:
+                        if (this.Head.PositionY + 1 > Console.WindowHeight - 1)
+                        {
+                            FireOnSnakeCollided();
+                        }
+                        break;
+                    case MoveDirection.RIGHT:
+                        if (this.Head.PositionX + 1 > Console.WindowWidth - 1)
+                        {
+                            FireOnSnakeCollided();
+                        }
+                        break;
+                    case MoveDirection.LEFT:
+                        if (this.Head.PositionX - 1 < 0)
+                        {
+                            FireOnSnakeCollided();
+                        }
+                        break;
+                }
+
                 // Gets the position of the last snake part and overrides it with a space.
                 SnakePart currentPart = GetLastPart();
 
@@ -142,7 +172,25 @@ namespace Client
 
                 this.FireOnSnakeMoved();
 
+                CheckIfCollision();
+
                 Thread.Sleep(this.Speed);
+            }
+        }
+
+        private void CheckIfCollision()
+        {
+            SnakePart currentPart = this.Head.Next;
+
+            while (currentPart != null)
+            {
+                if (currentPart.PositionX == this.Head.PositionX && currentPart.PositionY == this.Head.PositionY)
+                {
+                    FireOnSnakeCollided();
+                    break;
+                }
+
+                currentPart = currentPart.Next;
             }
         }
 
@@ -178,6 +226,14 @@ namespace Client
             if (this.SnakeMoved != null)
             {
                 this.SnakeMoved(this, new EventArgs());
+            }
+        }
+
+        protected virtual void FireOnSnakeCollided()
+        {
+            if (this.SnakeCollided != null)
+            {
+                this.SnakeCollided(this, new EventArgs());
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Client
 
         public KeyboardWatcher()
         {
-            this.threadArgs = new KeyboardWatcherThreadArgs(false, 100);
+            this.threadArgs = new KeyboardWatcherThreadArgs(false, 50);
             this.workThread = new Thread(Worker);
         }
 
