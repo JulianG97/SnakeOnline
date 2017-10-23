@@ -71,7 +71,7 @@ namespace Client
 
             Console.Title = "Snake Online | Singleplayer | Score: " + this.Score;
 
-            this.music.PlayMusic("music");
+            this.music.PlayMusic(Song.Song0);
 
             snake.Move();
         }
@@ -178,7 +178,7 @@ namespace Client
             {
                 if (fruit.PositionX == this.snake.Head.PositionX && fruit.PositionY == this.snake.Head.PositionY)
                 {
-                    this.music.PlaySound("fruiteaten");
+                    this.music.PlaySound(Sound.Sound0);
 
                     this.Score += fruit.Points;
                     this.fruits.Remove(fruit);
@@ -195,7 +195,7 @@ namespace Client
         public void SnakeDied(object sender, EventArgs args)
         {
             this.music.StopMusic();
-            this.music.PlaySound("snakedied");
+            this.music.PlaySound(Sound.Sound1);
             GameOver();
         }
 

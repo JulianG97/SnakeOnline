@@ -19,10 +19,11 @@ namespace Client
             soundPlayer = new WindowsMediaPlayer();
         }
 
-        public void PlayMusic(string song)
+        public void PlayMusic(Song song)
         {
             musicPlayer.settings.setMode("loop", true);
-            musicPlayer.URL = GetMusicDirectory() + song + ".mp3";
+            int songNumber = (int)song;
+            musicPlayer.URL = Directory.GetCurrentDirectory() + "\\Music\\" + "song" + songNumber + ".mp3";
             musicPlayer.controls.play();
         }
 
@@ -31,30 +32,11 @@ namespace Client
             musicPlayer.controls.stop();
         }
 
-        public void PlaySound(string sound)
+        public void PlaySound(Sound sound)
         {
-            soundPlayer.URL = GetMusicDirectory() + sound + ".mp3";
+            int soundNumber = (int)sound;
+            soundPlayer.URL = Directory.GetCurrentDirectory() + "\\Sound\\" +  "sound" +soundNumber + ".mp3";
             soundPlayer.controls.play();
-        }
-
-        private string GetMusicDirectory()
-        {
-            string path = Directory.GetCurrentDirectory();
-            string[] pathArray = path.Split('\\');
-
-            path = pathArray[0];
-
-            for (int i = 1; i < pathArray.Length; i++)
-            {
-                path = path + "\\" + pathArray[i];
-
-                if (pathArray[i] == "Client")
-                {
-                    break;
-                }
-            }
-
-            return path + "\\Music\\";
         }
     }
 }
