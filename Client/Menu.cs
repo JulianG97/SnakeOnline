@@ -16,21 +16,73 @@ namespace Client
             Console.SetWindowSize(61, 25);
             Console.CursorVisible = false;
 
+            int menuPosition = DisplayMenu(menuItems, true, true);
+
+            switch (menuPosition)
+            {
+                case 0:
+                    Console.Clear();
+
+                    Settings gameSettings = new Settings();
+                    gameSettings.SetGameSettings();
+
+                    Console.Clear();
+
+                    Game game = new Game(gameSettings);
+                    game.Start();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+
+        private static int DisplayMenu(string[] menuItems, bool displaySnake, bool displayCopyright)
+        {
             int menuPosition = 0;
 
             while (true)
             {
-                DisplayMenu(menuItems, menuPosition);
+                Console.Clear();
+
+                PrintGameHeader();
 
                 Console.WriteLine();
-
-                PrintSnake();
-
                 Console.WriteLine();
 
-                Console.ForegroundColor = ConsoleColor.White;
+                for (int i = 0; i < menuItems.Length; i++)
+                {
+                    if (i == menuPosition)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
 
-                Console.WriteLine("         " + "(C) 2017 Patrick Gamauf and Julian Gamauf");
+                    Console.WriteLine("                    " + menuItems[i]);
+                }
+
+                if (displaySnake == true)
+                {
+                    Console.WriteLine();
+
+                    PrintSnake();
+                }
+
+                if (displayCopyright == true)
+                {
+                    Console.WriteLine();
+
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.WriteLine("         " + "(C) 2017 Patrick Gamauf and Julian Gamauf");
+                }
 
                 ConsoleKeyInfo cki = Console.ReadKey(true);
 
@@ -49,53 +101,8 @@ namespace Client
                         }
                         break;
                     case ConsoleKey.Enter:
-                        switch (menuPosition)
-                        {
-                            case 0:
-                                Console.Clear();
-
-                                Settings gameSettings = new Settings();
-                                gameSettings.SetGameSettings();
-
-                                Console.Clear();
-
-                                Game game = new Game(gameSettings);
-                                game.Start();
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                Environment.Exit(0);
-                                break;
-                        }
-                        break;
+                        return menuPosition;
                 }
-            }
-        }
-
-        public static void DisplayMenu(string[] menuItems, int menuPosition)
-        {
-            Console.Clear();
-
-            PrintGameHeader();
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            for (int i = 0; i < menuItems.Length; i++)
-            {
-                if (i == menuPosition)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-
-                Console.WriteLine("                    " + menuItems[i]);
             }
         }
 
