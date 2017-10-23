@@ -201,9 +201,16 @@ namespace Client
 
         public void GameOver()
         {
+            this.exit = true;
+
+            try
+            {
+                this.spawnFruits.Abort();
+            }
+            catch (Exception) { }
+
             this.keyboardWatcher.Stop();
             this.snake.isMoving = false;
-            this.exit = true;
 
             Console.Clear();
 

@@ -28,9 +28,6 @@ namespace Client
                     break;
                 case 2:
                     break;
-                case 3:
-                    //Environment.Exit(0);
-                    break;
             }
         }
 
