@@ -13,10 +13,12 @@ namespace Client
             Console.Title = "Snake Online";
             string[] menuItems = { "Singleplayer (Offline)", "Multiplayer (Online)", "Help", "Exit" };
 
-            Console.SetWindowSize(61, 25);
-            Console.CursorVisible = false;
+            WindowWatcher windowWatcher = new WindowWatcher(25, 62, false);
+            windowWatcher.Start();
 
             int menuPosition = DisplayMenu(menuItems, true, true);
+
+            windowWatcher.Stop();
 
             switch (menuPosition)
             {
@@ -36,7 +38,12 @@ namespace Client
             Console.Title = "Snake Online | Singleplayer";
             string[] menuItems = { "Quick Game (Default Settings)", "Advanced Game (Custom Settings)", "Return To Main Menu..." };
 
+            WindowWatcher windowWatcher = new WindowWatcher(25, 62, false);
+            windowWatcher.Start();
+
             int menuPosition = DisplayMenu(menuItems, true, true);
+
+            windowWatcher.Stop();
 
             switch (menuPosition)
             {

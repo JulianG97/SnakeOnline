@@ -7,6 +7,7 @@ namespace Client
     public class Game
     {
         private KeyboardWatcher keyboardWatcher;
+        private WindowWatcher windowWatcher;
         private Snake snake;
         private Music music;
         private List<Fruit> fruits;
@@ -19,6 +20,7 @@ namespace Client
             this.music = new Music();
             this.gameSettings = gameSettings;
             this.keyboardWatcher = new KeyboardWatcher();
+            this.windowWatcher = new WindowWatcher(this.gameSettings.GameBoardHeight, this.gameSettings.GameBoardWidth, false);
             this.spawnFruits = new Thread(SpawnFruit);
             this.fruits = new List<Fruit>();
             this.exit = false;
@@ -34,7 +36,7 @@ namespace Client
         {
             Console.CursorVisible = false;
 
-            Console.SetWindowSize(this.gameSettings.GameBoardWidth, this.gameSettings.GameBoardHeight);
+            this.windowWatcher.Start();
 
             int moveDelay = 0;
 
@@ -225,12 +227,15 @@ namespace Client
             catch (Exception) { }
 
             this.keyboardWatcher.Stop();
+            this.windowWatcher.Stop();
             this.snake.isMoving = false;
 
             Console.Clear();
 
+            this.windowWatcher = new WindowWatcher(12, 62, false);
+            this.windowWatcher.Start();
+
             Console.Title = "Snake Online | Singeplayer | Game Over";
-            Console.SetWindowSize(61, 12);
 
             Menu.PrintGameHeader();
 
@@ -252,6 +257,8 @@ namespace Client
                     break;
                 }
             }
+
+            this.windowWatcher.Stop();
 
             Console.Clear();
 

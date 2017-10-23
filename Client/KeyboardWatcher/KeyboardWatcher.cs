@@ -34,7 +34,7 @@ namespace Client
         {
             if (this.threadArgs.IsRunning == false && this.workThread == null && !this.workThread.IsAlive)
             {
-                throw new InvalidOperationException("The keyboardwatcher is already stopped!");
+                throw new InvalidOperationException("The keyboardwatcher has been already stopped!");
             }
             else
             {
@@ -44,7 +44,7 @@ namespace Client
             }
         }
 
-        public void Worker(object data)
+        private void Worker(object data)
         {
             KeyboardWatcherThreadArgs args = (KeyboardWatcherThreadArgs)data;
 

@@ -119,7 +119,9 @@ namespace Client
         public void SetGameSettings()
         {
             Console.Title = "Snake Online | Singleplayer | Set Game Settings";
-            Console.SetWindowSize(80, 25);
+
+            WindowWatcher windowWatcher = new WindowWatcher(25, 80, true);
+            windowWatcher.Start();
 
             bool validSettings = false;
 
@@ -222,6 +224,8 @@ namespace Client
                     Console.Clear();
                 }            
             }
+
+            windowWatcher.Stop();
         }
 
         private bool CheckIfStringIsInteger(string input)

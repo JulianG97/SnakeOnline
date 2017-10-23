@@ -62,6 +62,8 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Song.cs" />
     <Compile Include="Sound.cs" />
+    <Compile Include="WindowWatcher\WindowWatcherThreadArgs.cs" />
+    <Compile Include="WindowWatcher\WindowWatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
