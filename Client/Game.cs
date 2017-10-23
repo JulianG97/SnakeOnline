@@ -71,7 +71,22 @@ namespace Client
 
             Console.Title = "Snake Online | Singleplayer | Score: " + this.Score;
 
-            this.music.PlayMusic(Song.Song0);
+            Song song = new Song();
+
+            switch (gameSettings.SongNumber)
+            {
+                case 0:
+                    song = Song.Song0;
+                    break;
+                case 1:
+                    song = Song.Song1;
+                    break;
+                case 2:
+                    song = Song.Song2;
+                    break;
+            }
+
+            this.music.PlayMusic(song);
 
             snake.Move();
         }

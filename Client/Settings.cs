@@ -12,6 +12,7 @@ namespace Client
         private int gameBoardHeight;
         private int speedMultiplicator;
         private int fruitMultiplicator;
+        private int songNumber;
 
         public Settings()
         {
@@ -19,6 +20,7 @@ namespace Client
             this.GameBoardWidth = 60;
             this.SpeedMultiplicator = 1;
             this.FruitMultiplicator = 1;
+            this.SongNumber = 0;
         }
 
         public int GameBoardWidth
@@ -94,6 +96,23 @@ namespace Client
                 }
 
                 this.fruitMultiplicator = value;
+            }
+        }
+
+        public int SongNumber
+        {
+            get
+            {
+                return this.songNumber;
+            }
+            private set
+            {
+                if (value < 0 || value > 2)
+                {
+                    throw new ArgumentException("The song number must be between 0 and 2!");
+                }
+
+                this.songNumber = value;
             }
         }
 
@@ -173,6 +192,20 @@ namespace Client
                     else
                     {
                         this.FruitMultiplicator = Int32.Parse(fruitMultiplicator);
+                    }
+
+                    Console.WriteLine();
+
+                    Console.Write("Enter the song number: ");
+                    string songNumber = Console.ReadLine();
+
+                    if (CheckIfStringIsInteger(songNumber) == false)
+                    {
+                        throw new ArgumentException("The song number must be an integer!");
+                    }
+                    else
+                    {
+                        this.SongNumber = Int32.Parse(songNumber);
                     }
 
                     validSettings = true;
