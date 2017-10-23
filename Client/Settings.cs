@@ -13,6 +13,14 @@ namespace Client
         private int speedMultiplicator;
         private int fruitMultiplicator;
 
+        public Settings()
+        {
+            this.GameBoardHeight = 25;
+            this.GameBoardWidth = 60;
+            this.SpeedMultiplicator = 1;
+            this.FruitMultiplicator = 1;
+        }
+
         public int GameBoardWidth
         {
             get

@@ -8,7 +8,7 @@ namespace Client
 {
     public class Menu
     {
-        public static void DisplayGameMenu()
+        public static void DisplayMainMenu()
         {
             Console.Title = "Snake Online";
             string[] menuItems = { "Singleplayer (Offline)", "Multiplayer (Online)", "Help", "Exit" };
@@ -22,9 +22,31 @@ namespace Client
             {
                 case 0:
                     Console.Clear();
+                    DisplaySingleplayerMenu();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    //Environment.Exit(0);
+                    break;
+            }
+        }
+
+        public static void DisplaySingleplayerMenu()
+        {
+            Console.Title = "Snake Online | Singleplayer";
+            string[] menuItems = { "Quick Game (Default Settings)", "Advanced Game (Custom Settings)", "Return To Main Menu..." };
+
+            int menuPosition = DisplayMenu(menuItems, true, true);
+
+            switch (menuPosition)
+            {
+                case 0:
+                    Console.Clear();
 
                     Settings gameSettings = new Settings();
-                    gameSettings.SetGameSettings();
 
                     Console.Clear();
 
@@ -32,11 +54,18 @@ namespace Client
                     game.Start();
                     break;
                 case 1:
+                    Console.Clear();
+
+                    gameSettings = new Settings();
+                    gameSettings.SetGameSettings();
+
+                    Console.Clear();
+
+                    game = new Game(gameSettings);
+                    game.Start();
                     break;
                 case 2:
-                    break;
-                case 3:
-                    Environment.Exit(0);
+                    DisplayMainMenu();
                     break;
             }
         }
@@ -65,7 +94,7 @@ namespace Client
                         Console.ForegroundColor = ConsoleColor.White;
                     }
 
-                    Console.WriteLine("                    " + menuItems[i]);
+                    Console.WriteLine("                " + menuItems[i]);
                 }
 
                 if (displaySnake == true)
@@ -93,11 +122,20 @@ namespace Client
                         {
                             menuPosition--;
                         }
+                        else if (menuPosition - 1 < 0)
+                        {
+                            menuPosition = menuItems.Length - 1;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
                         if (menuPosition + 1 < menuItems.Length)
                         {
                             menuPosition++;
+                        }
+                        else if (menuPosition + 1 > menuItems.Length - 1)
+                        {
+                            menuPosition = 0;
+
                         }
                         break;
                     case ConsoleKey.Enter:

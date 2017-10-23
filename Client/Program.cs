@@ -10,7 +10,7 @@ namespace Client
     {
         public static void Main(string[] args)
         {
-            Menu.DisplayGameMenu();
+            Menu.DisplayMainMenu();
         }
     }
 }

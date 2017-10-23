@@ -233,7 +233,7 @@ namespace Client
 
             Console.Clear();
 
-            Menu.DisplayGameMenu();
+            Menu.DisplayMainMenu();
         }
     }
 }

@@ -88,24 +88,28 @@ namespace Client
                         if (this.Head.PositionY - 1 < 0)
                         {
                             FireOnSnakeCollided();
+                            continue;
                         }
                         break;
                     case MoveDirection.DOWN:
                         if (this.Head.PositionY + 1 > Console.WindowHeight - 1)
                         {
                             FireOnSnakeCollided();
+                            continue;
                         }
                         break;
                     case MoveDirection.RIGHT:
                         if (this.Head.PositionX + 1 > Console.WindowWidth - 1)
                         {
                             FireOnSnakeCollided();
+                            continue;
                         }
                         break;
                     case MoveDirection.LEFT:
                         if (this.Head.PositionX - 1 < 0)
                         {
                             FireOnSnakeCollided();
+                            continue;
                         }
                         break;
                 }
