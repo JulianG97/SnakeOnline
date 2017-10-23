@@ -10,38 +10,17 @@ namespace Client
     {
         public static void DisplayGameMenu()
         {
+            Console.Title = "Snake Online";
             string[] menuItems = { "Singleplayer (Offline)", "Multiplayer (Online)", "Help", "Exit" };
 
             Console.SetWindowSize(61, 25);
             Console.CursorVisible = false;
 
-            bool exit = false;
             int menuPosition = 0;
 
-            while (exit == false)
+            while (true)
             {
-                Console.Clear();
-
-                Console.Title = "Snake Online";
-
-                PrintGameHeader();
-
-                Console.WriteLine();
-                Console.WriteLine();
-
-                for (int i = 0; i < menuItems.Length; i++)
-                {
-                    if (i == menuPosition)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-
-                    Console.WriteLine("                    " + menuItems[i]);
-                }
+                DisplayMenu(menuItems, menuPosition);
 
                 Console.WriteLine();
 
@@ -93,6 +72,30 @@ namespace Client
                         }
                         break;
                 }
+            }
+        }
+
+        public static void DisplayMenu(string[] menuItems, int menuPosition)
+        {
+            Console.Clear();
+
+            PrintGameHeader();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            for (int i = 0; i < menuItems.Length; i++)
+            {
+                if (i == menuPosition)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                Console.WriteLine("                    " + menuItems[i]);
             }
         }
 
