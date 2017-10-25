@@ -34,10 +34,13 @@ namespace Client
         {
             lock (locker)
             {
-                Console.SetCursorPosition(this.PositionX, this.PositionY);
-                Console.ForegroundColor = this.Color;
-                Console.Write(this.Symbol);
-                Console.ResetColor();
+                if (this.PositionX >= 0 && this.PositionY >= 0)
+                {
+                    Console.SetCursorPosition(this.PositionX, this.PositionY);
+                    Console.ForegroundColor = this.Color;
+                    Console.Write(this.Symbol);
+                    Console.ResetColor();
+                }
             }
         }
     }

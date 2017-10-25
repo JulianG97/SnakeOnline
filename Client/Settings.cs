@@ -142,7 +142,7 @@ namespace Client
 
                     Console.CursorVisible = true;
 
-                    Console.Write("Enter the game board height: ");
+                    Console.Write("Enter the game board height (max height: {0}): ", Console.LargestWindowHeight);
                     string gameBoardHeight = Console.ReadLine();
 
                     if (CheckIfStringIsInteger(gameBoardHeight) == false)
@@ -156,7 +156,7 @@ namespace Client
 
                     Console.WriteLine();
 
-                    Console.Write("Enter the game board width: ");
+                    Console.Write("Enter the game board width (max width: {0}): ", Console.LargestWindowWidth);
                     string gameBoardWidth = Console.ReadLine();
 
                     if (CheckIfStringIsInteger(gameBoardWidth) == false)
@@ -170,7 +170,7 @@ namespace Client
 
                     Console.WriteLine();
 
-                    Console.Write("Enter the speed multiplicator: ");
+                    Console.Write("Enter the speed multiplicator (1-3): ");
                     string speedMultiplicator = Console.ReadLine();
 
                     if (CheckIfStringIsInteger(speedMultiplicator) == false)
@@ -184,7 +184,7 @@ namespace Client
 
                     Console.WriteLine();
 
-                    Console.Write("Enter the fruit multiplicator: ");
+                    Console.Write("Enter the fruit multiplicator (1-3): ");
                     string fruitMultiplicator = Console.ReadLine();
 
                     if (CheckIfStringIsInteger(fruitMultiplicator) == false)
@@ -198,7 +198,7 @@ namespace Client
 
                     Console.WriteLine();
 
-                    Console.Write("Enter the song number: ");
+                    Console.Write("Enter the song number (0-2): ");
                     string songNumber = Console.ReadLine();
 
                     if (CheckIfStringIsInteger(songNumber) == false)
